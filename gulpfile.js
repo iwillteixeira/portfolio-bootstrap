@@ -1,13 +1,15 @@
-const { src, dest, watch, series } = require('gulp');
+const {
+  src, dest, watch, series,
+} = require('gulp');
 const sass = require('gulp-sass')(require('sass'));
 const postcss = require('gulp-postcss');
 const cssnano = require('cssnano');
 const terser = require('gulp-terser');
 const browsersync = require('browser-sync').create();
-const babel =require('gulp-babel');
+const babel = require('gulp-babel');
 
 // Sass Task
-function scssTask(){
+function scssTask() {
   return src('src/scss/**/*.scss', { sourcemaps: true })
     .pipe(sass())
     .pipe(postcss([cssnano()]))
@@ -15,32 +17,32 @@ function scssTask(){
 }
 
 // JavaScript Task
-function jsTask(){
+function jsTask() {
   return src(['src/js/**/*.js'], { sourcemaps: true })
     .pipe(babel())
     .pipe(terser())
     .pipe(dest('dist/js', { sourcemaps: '.' }));
 }
 
-//imagemin
+// imagemin
 
 // Browsersync Tasks
-function browsersyncServe(cb){
+function browsersyncServe(cb) {
   browsersync.init({
     server: {
-      baseDir: '.'
-    }
+      baseDir: '.',
+    },
   });
   cb();
 }
 
-function browsersyncReload(cb){
+function browsersyncReload(cb) {
   browsersync.reload();
   cb();
 }
 
 // Watch Task
-function watchTask(){
+function watchTask() {
   watch('*.html', browsersyncReload);
   watch(['src/scss/**/*.scss', 'src/js/**/*.js'], series(scssTask, jsTask, browsersyncReload));
 }
@@ -50,5 +52,5 @@ exports.default = series(
   scssTask,
   jsTask,
   browsersyncServe,
-  watchTask
+  watchTask,
 );
