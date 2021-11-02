@@ -1,0 +1,1 @@
+{"version":3,"sources":["_partials/_teste.scss","main.css"],"names":[],"mappings":"AAAA,IACE,qBCCF","file":"main.css","sourcesContent":[".bg {\n  background-color: blue;\n}\n",".bg {\n  background-color: blue;\n}"]}
